@@ -28,17 +28,16 @@ import (
 	"fmt"
 	"github.com/sirupsen/logrus"
 	"os"
-	"x-net.at/idp/helpers"
 )
 
 var Log *logrus.Logger
 var file os.File
 var fileEnabled bool = false
 
-func Init() {
+func Init(logger string, debug bool) {
 	fmt.Println("logger: ", helpers.Config.Logger)
 	Log = logrus.New()
-	if helpers.Config.Logger == "file" {
+	if logger == "file" {
 		file, err := os.OpenFile("/var/log/idp/x-idp.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
 		if err != nil {
 			panic("Fatal: Could not open Logfile: " + err.Error())
@@ -54,7 +53,7 @@ func Init() {
 	formatter.FullTimestamp = true
 	Log.SetFormatter(formatter)
 
-	if helpers.Config.Debug {
+	if debug {
 		Log.SetLevel(logrus.WarnLevel)
 	} else {
 		Log.SetLevel(logrus.DebugLevel)
