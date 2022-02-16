@@ -35,7 +35,7 @@ var file os.File
 var fileEnabled bool = false
 
 func Init(logger string, debug bool) {
-	fmt.Println("logger: ", helpers.Config.Logger)
+	fmt.Println("logger: ", logger)
 	Log = logrus.New()
 	if logger == "file" {
 		file, err := os.OpenFile("/var/log/idp/x-idp.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
